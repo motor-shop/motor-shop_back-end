@@ -1,0 +1,2 @@
+Arquivo criado apenas para manter a pasta migrations ao fazer o push 
+Apagar ao fazer a primeira migration 
