@@ -1,6 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import {
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    OneToMany,
+    ManyToOne,
+} from "typeorm";
 import { Image } from "./image.entity";
 import { Comment } from "./comment.entity";
+import { User } from "./user.entity";
 
 @Entity("advert")
 export class Advert {
@@ -37,8 +44,8 @@ export class Advert {
     @Column()
     user_id: string;
 
-    // @ManyToOne(() => User, (user) => user.advert)
-    // user: User;
+    @ManyToOne(() => User, (user) => user.adverts)
+    user: User;
 
     @OneToMany(() => Image, (image) => image.advert)
     images: Image[];
