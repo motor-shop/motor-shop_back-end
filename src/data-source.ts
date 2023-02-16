@@ -1,8 +1,5 @@
 import { DataSource } from "typeorm";
 import "dotenv/config";
-import { User } from "./entities/user.entity";
-import { Adress } from "./entities/adress.entity";
-import { initialMigration1676392522610 } from "./migrations/1676392522610-initialMigration";
 
 const AppDataSource = new DataSource({
     type: "postgres",
