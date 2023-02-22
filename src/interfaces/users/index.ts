@@ -13,7 +13,7 @@ export interface IUser {
     confirm_password: string;
     is_seller: boolean;
     adress_id: Adress;
-    adverts: Advert[];
+    // adverts: Advert[];
 }
 
 export interface IUserRequest {
