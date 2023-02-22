@@ -3,10 +3,10 @@ import "dotenv/config";
 import { User } from "./entities/user.entity";
 import { Adress } from "./entities/adress.entity";
 import { initialMigration1676392522610 } from "./migrations/1676392522610-initialMigration";
-import { createTables1676396856013 } from "./migrations/1676396856013-createTables";
 import { Advert } from "./entities/advert.entity";
 import { Image } from "./entities/image.entity";
 import { Comment } from "./entities/comment.entity";
+import { createTables1677078048310 } from "./migrations/1677078048310-createTables";
 
 const AppDataSource = new DataSource({
     type: "postgres",
@@ -18,7 +18,7 @@ const AppDataSource = new DataSource({
     synchronize: false,
     logging: true,
     entities: [User, Adress, Advert, Image, Comment],
-    migrations: [initialMigration1676392522610, createTables1676396856013],
+    migrations: [initialMigration1676392522610, createTables1677078048310],
 });
 
 (async () => {

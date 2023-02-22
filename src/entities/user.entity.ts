@@ -49,6 +49,6 @@ export class User {
     @JoinColumn()
     adress_id: Adress;
 
-    @OneToMany(() => Advert, (advert) => advert.user)
-    adverts: Advert[];
+    // @OneToMany(() => Advert, (advert) => advert.user)
+    // adverts: Advert[];
 }
