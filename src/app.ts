@@ -4,6 +4,7 @@ import usersRoutes from "./routes/users.routes";
 import handleError from "./errors/handleError";
 import swaggerAutogen from "swagger-autogen";
 import { doc, endpointsFiles, outputFile } from "./swagger";
+import advertsRoutes from "./routes/adverts.routes";
 
 const swaggerUi = require("swagger-ui-express");
 
@@ -19,7 +20,7 @@ swaggerAutogen()(outputFile, endpointsFiles, doc).then(() => {
         swaggerUi.setup(require("./swagger_output.json"))
     );
 
-    app.use("/users", usersRoutes);
+    app.use("", usersRoutes, advertsRoutes);
 
     //Errors------------------------
     app.use(handleError);
