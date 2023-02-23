@@ -12,7 +12,7 @@ import { User } from "./user.entity";
 @Entity("advert")
 export class Advert {
     @PrimaryGeneratedColumn("uuid")
-    readonly id: string;
+    id: string;
 
     @Column({ type: "boolean", default: true })
     is_selling: boolean;
