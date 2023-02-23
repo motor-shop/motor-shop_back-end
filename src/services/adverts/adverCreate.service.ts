@@ -8,8 +8,6 @@ const advertCreateService = async (data: IAdvertRequest): Promise<Advert> => {
     const advertRepository = AppDataSource.getRepository(Advert);
     const imageRepository = AppDataSource.getRepository(Image);
 
-    const createdImages: Array<Image> = [];
-
     if (!data.hasOwnProperty("images")) {
         throw new AppError(400, "chave images é obrigatoria");
     }
@@ -37,16 +35,12 @@ const advertCreateService = async (data: IAdvertRequest): Promise<Advert> => {
     if (!data.hasOwnProperty("cover_image")) {
         throw new AppError(400, "chave cover_image é obrigatoria");
     }
-
-    data.images.map((image) => {
-        const newImage = imageRepository.create({ url: image });
-        createdImages.push(newImage);
-    });
-
-    imageRepository.save(createdImages);
+    if (!data.hasOwnProperty("is_selling")) {
+        throw new AppError(400, "chave is_selling é obrigatoria");
+    }
 
     const newAdvert = advertRepository.create({
-        is_selling: true,
+        is_selling: data.is_selling,
         title: data.title,
         year: data.year,
         km: data.km,
@@ -55,11 +49,26 @@ const advertCreateService = async (data: IAdvertRequest): Promise<Advert> => {
         is_car: data.is_car,
         cover_image: data.cover_image,
         is_active: data.is_active,
-        images: createdImages,
     });
+
     await advertRepository.save(newAdvert);
 
-    return newAdvert;
+    await Promise.all(
+        data.images.map(async (image) => {
+            await imageRepository.save({ url: image, advert: newAdvert });
+        })
+    );
+
+    const advertCreated = await advertRepository.findOne({
+        where: { id: newAdvert.id },
+        relations: { images: true },
+    });
+
+    if (!advertCreated) {
+        throw new AppError(404, "error not created");
+    }
+
+    return advertCreated;
 };
 
 export default advertCreateService;
