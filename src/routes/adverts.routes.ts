@@ -8,18 +8,94 @@ import advertUpdateController from "../controllers/adverts/advertUpdate.controll
 const advertsRoutes = Router();
 
 advertsRoutes.post("/adverts", (req, res, next) => {
+    /* 	#swagger.tags = ['Advert']
+    #swagger.summary = 'Cria um novo anúncio de venda de veiculos'
+    #swagger.description = 'Este endpoint cria um novo anúncio de venda de veiculos com as informações fornecidas no payload da requisição.' */
+
+    /*	#swagger.parameters['obj'] = {
+        in: 'body',
+        description: 'Informações para criação.',
+        required: true,
+        schema: { $ref: "#/definitions/Advert" }
+    } */
+
+    /* #swagger.security = [{
+        "apiKeyAuth": []
+    }] */
+
+    /* #swagger.responses[201] = {
+        description: 'Anúncio criado com sucesso.',
+        schema: { $ref: "#/definitions/Advert" }
+    } */
+
+    /* #swagger.responses[400] = {
+        description: 'Exemplo de erro:',
+        schema: { $ref: "#/definitions/ErrorKeysCreate" }
+    } */
     advertCreateController(req, res);
 });
 
-advertsRoutes.patch("/adverts/:id", (req, res, next) => {
+advertsRoutes.patch("/adverts/:id_vehicle", (req, res, next) => {
+    /* 	#swagger.tags = ['Advert']
+    #swagger.summary = 'atualiza um anúncio de venda de veiculos'
+    #swagger.description = 'Este endpoint atualiza um anúncio de veiculos com as informações fornecidas no payload da requisição.' */
+
+    /*	#swagger.parameters['obj'] = {
+        in: 'body',
+        description: 'Informações para atualização.',
+        required: true,
+        schema: { $ref: "#/definitions/Advert" }
+    } */
+
+    /* #swagger.security = [{
+        "apiKeyAuth": []
+    }] */
+
+    /* #swagger.responses[201] = {
+        description: 'Anúncio atualizado com sucesso.',
+        schema: { $ref: "#/definitions/Advert" }
+    } */
+
+    /* #swagger.responses[400] = {
+        description: 'Exemplo de erro:',
+        schema: { $ref: "#/definitions/ErrorKeysCreate" }
+    } */
     advertUpdateController(req, res);
 });
 
 advertsRoutes.delete("/adverts/:id", (req, res, next) => {
+    /* 	#swagger.tags = ['Advert']
+    #swagger.summary = 'deleta um anúncio de venda de veiculos'
+    #swagger.description = 'Este endpoint deleta um anuncio pelo id fornecido na url' */
+
+    /* #swagger.security = [{
+        "apiKeyAuth": []
+    }] */
+
+    /* #swagger.responses[204] = {
+        description: 'Anúncio atualizado com sucesso.',
+    } */
+
+    /* #swagger.responses[400] = {
+        description: 'Anuncio não existe:',
+        schema: { $ref: "#/definitions/ErrorKeysCreate" }
+    } */
     advertDeleteController(req, res);
 });
 
 advertsRoutes.get("/adverts/user/:id", (req, res, next) => {
+    /* 	#swagger.tags = ['Advert']
+    #swagger.summary = 'busca de anúncios de venda de veiculos'
+    #swagger.description = 'Este endpoint busca anúncios de veiculos pelo id do usuário fornecido na url' */
+
+    /* #swagger.security = [{
+        "apiKeyAuth": []
+    }] */
+
+    /* #swagger.responses[200] = {
+        description: 'Busca com sucesso.',
+        schema: { $ref: "#/definitions/Advert" }
+    } */
     advertGetByUserController(req, res);
 });
 

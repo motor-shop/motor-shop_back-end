@@ -4,7 +4,9 @@ import { User } from "../../entities/user.entity";
 
 const advertGetByUserService = async (id: string): Promise<Array<Advert>> => {
     const advertRepository = AppDataSource.getRepository(Advert);
-    const fullAdverts = await advertRepository.find();
+    const fullAdverts = await advertRepository.find({
+        relations: { images: true },
+    });
     return fullAdverts;
 
     // descomentar esse codigo abaixo ao implementar a logica de cadastrar anuncios vinculados a um usuario

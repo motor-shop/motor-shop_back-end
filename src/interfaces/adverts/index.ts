@@ -8,6 +8,7 @@ export interface IAdvertRequest {
     cover_image: string;
     is_active: boolean;
     images: Array<string>;
+    is_selling: boolean;
 }
 
 export interface IAdvertUpdate {
