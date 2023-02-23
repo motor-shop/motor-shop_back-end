@@ -149,5 +149,101 @@ export const doc = {
                 "adress_id",
             ],
         },
+        Advert: {
+            type: "object",
+            properties: {
+                id: {
+                    type: "string",
+                    example: "123e4567-e89b-12d3-a456-426614174000",
+                },
+                is_selling: {
+                    type: "boolean",
+                    example: true,
+                },
+                title: {
+                    type: "string",
+                    maxLength: 50,
+                    example: "Selling my car",
+                },
+                year: {
+                    type: "integer",
+                    example: 2022,
+                },
+                km: {
+                    type: "integer",
+                    example: 50000,
+                },
+                price: {
+                    type: "number",
+                    format: "float",
+                    example: 10000.0,
+                },
+                description: {
+                    type: "string",
+                    maxLength: 200,
+                    example: "Lorem ipsum dolor sit amet",
+                },
+                is_car: {
+                    type: "boolean",
+                    example: true,
+                },
+                cover_image: {
+                    type: "string",
+                    example: "https://example.com/image.png",
+                },
+                is_active: {
+                    type: "boolean",
+                    example: true,
+                },
+                images: {
+                    type: "array",
+                    items: {
+                        $ref: "#/definitions/Image",
+                    },
+                },
+            },
+            required: [
+                "is_selling",
+                "title",
+                "year",
+                "km",
+                "price",
+                "description",
+                "is_car",
+                "cover_image",
+                "is_active",
+                "images",
+            ],
+        },
+        Image: {
+            type: "object",
+            properties: {
+                id: {
+                    type: "string",
+                    example: "123e4567-e89b-12d3-a456-426614174000",
+                },
+                url: {
+                    type: "string",
+                    example: "https://example.com/image.png",
+                },
+                advert: {
+                    $ref: "#/definitions/Advert",
+                },
+            },
+            required: ["url"],
+        },
+        ErrorKeysCreate: {
+            type: "object",
+            properties: {
+                status: {
+                    type: "string",
+                    example: "error",
+                },
+                message: {
+                    type: "string",
+                    example: "chave {nome-da-chave} é obrigatoria.",
+                },
+            },
+        },
     },
 };
