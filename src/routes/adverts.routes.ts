@@ -3,6 +3,8 @@ import { Router } from "express";
 import advertCreateController from "../controllers/adverts/advertCreate.controler";
 import advertDeleteController from "../controllers/adverts/advertDelete.controller";
 import advertGetByUserController from "../controllers/adverts/advertGetByUser.controller";
+import advertListController from "../controllers/adverts/advertList.controller";
+import advertListOneController from "../controllers/adverts/advertListOne.controller";
 import advertUpdateController from "../controllers/adverts/advertUpdate.controller";
 
 const advertsRoutes = Router();
@@ -97,6 +99,39 @@ advertsRoutes.get("/adverts/user/:id", (req, res, next) => {
         schema: { $ref: "#/definitions/Advert" }
     } */
     advertGetByUserController(req, res);
+});
+advertsRoutes.get("/adverts", (req, res, next) => {
+    /* 	#swagger.tags = ['Advert']
+    #swagger.summary = 'busca de anúncios de venda de veiculos'
+    #swagger.description = 'Este endpoint busca todos os anúncios de veiculos' */
+
+    /* #swagger.security = [{
+        "apiKeyAuth": []
+    }] */
+
+    /* #swagger.responses[200] = {
+        description: 'Busca com sucesso.',
+        schema: { $ref: "#/definitions/Advert" }
+    } */
+
+    advertListController(req, res);
+});
+
+advertsRoutes.get("/adverts/:id", (req, res, next) => {
+    /* 	#swagger.tags = ['Advert']
+    #swagger.summary = 'busca de anúncios de venda de veiculos'
+    #swagger.description = 'Este endpoint busca o anúncio do veiculo pelo id fornecido na url' */
+
+    /* #swagger.security = [{
+        "apiKeyAuth": []
+    }] */
+
+    /* #swagger.responses[200] = {
+        description: 'Busca com sucesso.',
+        schema: { $ref: "#/definitions/Advert" }
+    } */
+
+    advertListOneController(req, res);
 });
 
 export default advertsRoutes;
