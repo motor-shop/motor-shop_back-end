@@ -10,6 +10,7 @@ import {
 } from "typeorm";
 import { Adress } from "./adress.entity";
 import { Advert } from "./advert.entity";
+import { Comment } from "./comment.entity";
 
 @Entity("user")
 export class User {
@@ -51,4 +52,7 @@ export class User {
 
     // @OneToMany(() => Advert, (advert) => advert.user)
     // adverts: Advert[];
+
+    @OneToMany(() => Comment, (comment) => comment.user)
+    comments: Comment[];
 }
