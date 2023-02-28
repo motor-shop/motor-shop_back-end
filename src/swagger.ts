@@ -245,5 +245,42 @@ export const doc = {
                 },
             },
         },
+        Login: {
+            type: "object",
+            properties: {
+                email: {
+                    type: "string",
+                    maxLength: 100,
+                    format: "email",
+                    example: "johndoe@example.com",
+                },
+                password: {
+                    type: "string",
+                    example: "password",
+                },
+            },
+        },
+        Token: {
+            type: "object",
+            properties: {
+                token: {
+                    type: "string",
+                    example: "dj399aodq09wq3d020eb0raranfa0dh0R00EFNFAERWQ",
+                },
+            },
+        },
+        ErrorLogin: {
+            type: "object",
+            properties: {
+                status: {
+                    type: "string",
+                    example: "error",
+                },
+                message: {
+                    type: "string",
+                    example: "Invalid email or password",
+                },
+            },
+        },
     },
 };
