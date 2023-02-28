@@ -1,4 +1,3 @@
-import "express-async-errors";
 import express from "express";
 
 import usersRoutes from "./routes/users.routes";
@@ -22,9 +21,6 @@ swaggerAutogen()(outputFile, endpointsFiles, doc).then(() => {
     );
 
     app.use("", usersRoutes, advertsRoutes);
-
-    //Errors------------------------
-    app.use(handleError);
 
     app.listen(3000, () => {
         console.log("Server is running on port 3000");
