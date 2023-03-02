@@ -11,7 +11,9 @@ export interface IAdress {
 export interface IUserUpdate {
     username?: string;
     email?: string;
+    cpf?: string;
     cellphone?: string;
+    birth_at: Date;
     description?: string;
     password?: string;
     confirm_password?: string;
