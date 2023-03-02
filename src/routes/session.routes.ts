@@ -30,3 +30,5 @@ sessionRoutes.post("/login", (req: Request, res: Response) => {
     } */
     sessionController(req, res);
 });
+
+export default sessionRoutes;

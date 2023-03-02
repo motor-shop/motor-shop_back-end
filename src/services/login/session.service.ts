@@ -6,7 +6,7 @@ import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppErrors";
 
 interface ISessionRequest {
-    email: string;
+    username: string;
     password: string;
 }
 
@@ -16,19 +16,21 @@ interface IPropsSessionService {
 
 const sessionService = async ({ data }: IPropsSessionService) => {
     const userRepository = AppDataSource.getRepository(User);
-
+    if (!data.username || !data.password) {
+        throw new AppError(404, "Invalid username or password");
+    }
     const userExists = await userRepository.findOneBy({
-        email: data.email,
+        username: data.username,
     });
-
+    console.log(data);
     if (!userExists) {
-        throw new AppError(404, "Invalid email or password");
+        throw new AppError(404, "Invalid username or password");
     }
 
     const validPassword = await compare(data.password, userExists.password);
 
     if (!validPassword) {
-        throw new AppError(404, "Invalid email or password");
+        throw new AppError(404, "Invalid username or password");
     }
 
     const token = jwt.sign(

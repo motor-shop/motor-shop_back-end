@@ -4,7 +4,8 @@ import sessionService from "../../services/login/session.service";
 
 const sessionController = async (req: Request, res: Response) => {
     try {
-        const session = await sessionService(req.body);
+        console.log("controller", req.body);
+        const session = await sessionService({ data: req.body });
 
         return res
             .status(201)

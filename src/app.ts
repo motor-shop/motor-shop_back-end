@@ -6,6 +6,7 @@ import swaggerAutogen from "swagger-autogen";
 import { doc, endpointsFiles, outputFile } from "./swagger";
 import advertsRoutes from "./routes/adverts.routes";
 import cors from "cors";
+import sessionRoutes from "./routes/session.routes";
 
 const swaggerUi = require("swagger-ui-express");
 
@@ -21,7 +22,7 @@ swaggerAutogen()(outputFile, endpointsFiles, doc).then(() => {
         swaggerUi.setup(require("./swagger_output.json"))
     );
 
-    app.use("", usersRoutes, advertsRoutes);
+    app.use("", usersRoutes, advertsRoutes, sessionRoutes);
 
     app.listen(3001, () => {
         console.log("Server is running on port 3000");
