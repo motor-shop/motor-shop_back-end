@@ -20,7 +20,9 @@ const userUpdateService = async (
     await userRepository.update(id, {
         username: user.username ? user.username : userFind.username,
         email: user.email ? user.email : userFind.email,
+        cpf: user.cpf ? user.cpf : userFind.cpf,
         cellphone: user.cellphone ? user.cellphone : userFind.email,
+        birth_at: user.birth_at ? user.birth_at : userFind.birth_at,
         description: user.description ? user.description : userFind.description,
         password: user.password
             ? hashSync(user.password, 10)
