@@ -18,7 +18,7 @@ const usersListService = async () => {
             birth_at: user.birth_at,
             description: user.description,
             is_seller: user.is_seller,
-            adress_id: user.adress_id,
+            adress: user.adress,
         };
 
         output.push(newUser);
