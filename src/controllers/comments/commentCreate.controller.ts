@@ -4,7 +4,7 @@ import commentCreateService from "../../services/comments/commentCreate.service"
 
 const commentCreateController = async (req: Request, res: Response) => {
     try {
-        const idUser = req.params.idUser;
+        const idUser = req.body.decodifiedToken.id;
         const comment = await commentCreateService(req.body, idUser);
 
         return res.status(201).json(comment);

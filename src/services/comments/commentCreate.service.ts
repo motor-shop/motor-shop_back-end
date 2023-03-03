@@ -36,9 +36,13 @@ const commentCreateService = async (
         throw new AppError(404, "advert not found");
     }
 
+    const currentTime = new Date();
+
     const newComment = commentsRepository.create({
         comment: data.comment,
-        created_at: new Date(),
+        created_at: new Date(
+            currentTime.valueOf() - currentTime.getTimezoneOffset() * 60000
+        ),
         advert: advert,
         user: user,
     });
