@@ -35,8 +35,11 @@ advertsRoutes.post("/adverts", (req, res, next) => {
         description: 'Exemplo de erro:',
         schema: { $ref: "#/definitions/ErrorKeysCreate" }
     } */
+
     authUserMiddleware(req, res, next);
-    advertCreateController(req, res);
+    if (!res.headersSent) {
+        advertCreateController(req, res);
+    }
 });
 
 advertsRoutes.patch("/adverts/:id", (req, res, next) => {
@@ -65,7 +68,9 @@ advertsRoutes.patch("/adverts/:id", (req, res, next) => {
         schema: { $ref: "#/definitions/ErrorKeysCreate" }
     } */
     authUserMiddleware(req, res, next);
-    advertUpdateController(req, res);
+    if (!res.headersSent) {
+        advertUpdateController(req, res);
+    }
 });
 
 advertsRoutes.delete("/adverts/:id", (req, res, next) => {
@@ -86,7 +91,9 @@ advertsRoutes.delete("/adverts/:id", (req, res, next) => {
         schema: { $ref: "#/definitions/ErrorKeysCreate" }
     } */
     authUserMiddleware(req, res, next);
-    advertDeleteController(req, res);
+    if (!res.headersSent) {
+        advertDeleteController(req, res);
+    }
 });
 
 advertsRoutes.get("/adverts/user", (req, res, next) => {
@@ -103,7 +110,9 @@ advertsRoutes.get("/adverts/user", (req, res, next) => {
         schema: { $ref: "#/definitions/Advert" }
     } */
     authUserMiddleware(req, res, next);
-    advertGetByUserController(req, res);
+    if (!res.headersSent) {
+        advertGetByUserController(req, res);
+    }
 });
 advertsRoutes.get("/adverts", (req, res, next) => {
     /* 	#swagger.tags = ['Advert']
