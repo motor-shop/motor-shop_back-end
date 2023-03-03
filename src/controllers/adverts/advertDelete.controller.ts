@@ -1,12 +1,10 @@
 import { Request, Response } from "express";
 import handleError from "../../errors/handleError";
-import advertUpdateService from "../../services/adverts/advertUpdate.service";
+import advertDeleteService from "../../services/adverts/advertDelete.service";
 
 const advertDeleteController = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
-
-        await advertUpdateService({ is_active: false }, id);
+        await advertDeleteService(req.params.id, req.body.decodifiedToken.id);
 
         res.status(204).send();
     } catch (error: any) {

@@ -1,18 +1,34 @@
 import AppDataSource from "../../data-source";
 import { Advert } from "../../entities/advert.entity";
+import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppErrors";
 import { IAdvertUpdate } from "../../interfaces/adverts";
 
 const advertUpdateService = async (
     updateFields: IAdvertUpdate,
-    id: string
+    id: string,
+    id_user: string
 ): Promise<Advert> => {
     const advertRepository = AppDataSource.getRepository(Advert);
+    const userRepository = AppDataSource.getRepository(User);
 
-    const advert = await advertRepository.findOneBy({ id });
+    const userLogged = await userRepository.findOneBy({ id: id_user });
 
-    if (!advert || !advert.is_active) {
+    if (!userLogged) {
+        throw new AppError(404, "User not logged");
+    }
+    console.log(id);
+    const advert = await advertRepository.findOne({
+        where: { id },
+        relations: { user: true },
+    });
+
+    if (!advert) {
         throw new AppError(404, "Advert not found.");
+    }
+
+    if (advert.user.id !== userLogged.id) {
+        throw new AppError(401, "it is only possible to update your ads");
     }
 
     if (updateFields.hasOwnProperty("is_selling")) {
@@ -45,10 +61,6 @@ const advertUpdateService = async (
 
     if (updateFields.hasOwnProperty("cover_image")) {
         advert.cover_image = updateFields.cover_image!;
-    }
-
-    if (updateFields.hasOwnProperty("is_active")) {
-        advert.is_active = updateFields.is_active!;
     }
 
     const updatedAdvert = await advertRepository.save(advert);

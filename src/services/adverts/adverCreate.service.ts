@@ -1,12 +1,23 @@
 import AppDataSource from "../../data-source";
 import { Advert } from "../../entities/advert.entity";
 import { Image } from "../../entities/image.entity";
+import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppErrors";
 import { IAdvertRequest } from "../../interfaces/adverts";
 
-const advertCreateService = async (data: IAdvertRequest): Promise<Advert> => {
+const advertCreateService = async (
+    data: IAdvertRequest,
+    id: string
+): Promise<Advert> => {
     const advertRepository = AppDataSource.getRepository(Advert);
     const imageRepository = AppDataSource.getRepository(Image);
+    const userRepository = AppDataSource.getRepository(User);
+
+    const userLogged = await userRepository.findOneBy({ id });
+
+    if (!userLogged) {
+        throw new AppError(404, "User not logged");
+    }
 
     if (!data.hasOwnProperty("images")) {
         throw new AppError(400, "chave images é obrigatoria");
@@ -48,7 +59,7 @@ const advertCreateService = async (data: IAdvertRequest): Promise<Advert> => {
         description: data.description,
         is_car: data.is_car,
         cover_image: data.cover_image,
-        is_active: data.is_active,
+        user: userLogged,
     });
 
     await advertRepository.save(newAdvert);
