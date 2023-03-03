@@ -37,11 +37,8 @@ const userCreateService = async ({
     const is_seller = false; // Por padrão, o usuário é criado com is_seller === false.
 
     const newAdress = adressRepository.create(adress);
-    await adressRepository.save(newAdress);
 
-    const idAdress = await adressRepository.findOneBy({
-        id: adress.id,
-    });
+    await adressRepository.save(newAdress);
 
     const newUser = userRepository.create({
         username,
@@ -53,7 +50,7 @@ const userCreateService = async ({
         password: hashedPassword,
         confirm_password: hashedconfirmPassword,
         is_seller,
-        adress_id: idAdress!,
+        adress: newAdress,
     });
 
     await userRepository.save(newUser);

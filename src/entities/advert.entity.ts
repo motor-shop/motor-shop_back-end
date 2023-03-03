@@ -41,8 +41,8 @@ export class Advert {
     @Column({ type: "boolean", default: true })
     is_active: boolean;
 
-    // @ManyToOne(() => User, (user) => user.adverts)
-    // user: User;
+    @ManyToOne(() => User, (user) => user.adverts)
+    user: User;
 
     @OneToMany(() => Image, (image) => image.advert)
     images: Image[];

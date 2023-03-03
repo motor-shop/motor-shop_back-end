@@ -12,8 +12,8 @@ export interface IUser {
     password: string;
     confirm_password: string;
     is_seller: boolean;
-    adress_id: Adress;
-    // adverts: Advert[];
+    adress: Adress;
+    adverts: Advert[];
 }
 
 export interface IUserRequest {

@@ -48,10 +48,10 @@ export class User {
 
     @OneToOne(() => Adress)
     @JoinColumn()
-    adress_id: Adress;
+    adress: Adress;
 
-    // @OneToMany(() => Advert, (advert) => advert.user)
-    // adverts: Advert[];
+    @OneToMany(() => Advert, (advert) => advert.user)
+    adverts: Advert[];
 
     @OneToMany(() => Comment, (comment) => comment.user)
     comments: Comment[];

@@ -30,7 +30,7 @@ const userUpdateService = async (
         confirm_password: user.confirm_password
             ? user.confirm_password
             : userFind.confirm_password,
-        adress_id: user.adress_id ? user.adress_id : userFind.adress_id,
+        adress: user.adress_id ? user.adress_id : userFind.adress,
     });
 
     const userReturned = await userRepository.findOneBy({
