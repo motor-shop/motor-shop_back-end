@@ -8,8 +8,8 @@ import { AppError } from "../../errors/AppErrors";
 const advertDeleteService = async (id: string, id_user: string) => {
     const userRepository = AppDataSource.getRepository(User);
     const advertRepository = AppDataSource.getRepository(Advert);
-    const commentRepository = AppDataSource.getRepository(Comment);
     const imageRepository = AppDataSource.getRepository(Image);
+    const commentRepository = AppDataSource.getRepository(Comment);
 
     const userLogged = await userRepository.findOneBy({ id: id_user });
 
@@ -20,15 +20,20 @@ const advertDeleteService = async (id: string, id_user: string) => {
         where: { id },
         relations: { images: true, comments: true },
     });
+
     if (!deleteAdvert) {
         throw new AppError(404, "advert to delete not found");
     }
 
-    deleteAdvert.images.forEach(async (image) => {
-        console.log(image);
-        await imageRepository.delete(image);
+    deleteAdvert.images.map(async (image) => {
+        await imageRepository.delete(image.id);
     });
-    await advertRepository.delete(deleteAdvert);
+
+    deleteAdvert.comments.map(async (comment) => {
+        await commentRepository.delete(comment.id);
+    });
+
+    await advertRepository.delete(deleteAdvert.id);
 };
 
 export default advertDeleteService;
