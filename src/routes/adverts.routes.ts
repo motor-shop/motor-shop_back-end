@@ -6,6 +6,7 @@ import advertGetByUserController from "../controllers/adverts/advertGetByUser.co
 import advertListController from "../controllers/adverts/advertList.controller";
 import advertListOneController from "../controllers/adverts/advertListOne.controller";
 import advertUpdateController from "../controllers/adverts/advertUpdate.controller";
+import authUserMiddleware from "../middlewares/authUser.middleware";
 
 const advertsRoutes = Router();
 
@@ -34,10 +35,11 @@ advertsRoutes.post("/adverts", (req, res, next) => {
         description: 'Exemplo de erro:',
         schema: { $ref: "#/definitions/ErrorKeysCreate" }
     } */
+    authUserMiddleware(req, res, next);
     advertCreateController(req, res);
 });
 
-advertsRoutes.patch("/adverts/:id_vehicle", (req, res, next) => {
+advertsRoutes.patch("/adverts/:id", (req, res, next) => {
     /* 	#swagger.tags = ['Advert']
     #swagger.summary = 'atualiza um anúncio de venda de veiculos'
     #swagger.description = 'Este endpoint atualiza um anúncio de veiculos com as informações fornecidas no payload da requisição.' */
@@ -62,6 +64,7 @@ advertsRoutes.patch("/adverts/:id_vehicle", (req, res, next) => {
         description: 'Exemplo de erro:',
         schema: { $ref: "#/definitions/ErrorKeysCreate" }
     } */
+    authUserMiddleware(req, res, next);
     advertUpdateController(req, res);
 });
 
@@ -82,10 +85,11 @@ advertsRoutes.delete("/adverts/:id", (req, res, next) => {
         description: 'Anuncio não existe:',
         schema: { $ref: "#/definitions/ErrorKeysCreate" }
     } */
+    authUserMiddleware(req, res, next);
     advertDeleteController(req, res);
 });
 
-advertsRoutes.get("/adverts/user/:id", (req, res, next) => {
+advertsRoutes.get("/adverts/user", (req, res, next) => {
     /* 	#swagger.tags = ['Advert']
     #swagger.summary = 'busca de anúncios de venda de veiculos'
     #swagger.description = 'Este endpoint busca anúncios de veiculos pelo id do usuário fornecido na url' */
@@ -98,6 +102,7 @@ advertsRoutes.get("/adverts/user/:id", (req, res, next) => {
         description: 'Busca com sucesso.',
         schema: { $ref: "#/definitions/Advert" }
     } */
+    authUserMiddleware(req, res, next);
     advertGetByUserController(req, res);
 });
 advertsRoutes.get("/adverts", (req, res, next) => {

@@ -38,15 +38,15 @@ export class Advert {
     @Column({ type: "varchar" })
     cover_image: string;
 
-    @Column({ type: "boolean", default: true })
-    is_active: boolean;
-
     @ManyToOne(() => User, (user) => user.adverts)
     user: User;
 
-    @OneToMany(() => Image, (image) => image.advert)
+    @OneToMany(() => Image, (image) => image.advert, { cascade: true })
     images: Image[];
 
-    @OneToMany(() => Comment, (comment) => comment.advert, { eager: true })
+    @OneToMany(() => Comment, (comment) => comment.advert, {
+        cascade: true,
+        eager: true,
+    })
     comments: Comment[];
 }

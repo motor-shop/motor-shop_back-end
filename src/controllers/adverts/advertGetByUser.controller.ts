@@ -4,7 +4,9 @@ import advertGetByUserService from "../../services/adverts/advertGetByUser.servi
 
 const advertGetByUserController = async (req: Request, res: Response) => {
     try {
-        const adverts = await advertGetByUserService(req.params.id);
+        const adverts = await advertGetByUserService(
+            req.body.decodifiedToken.id
+        );
 
         res.status(200).json(adverts);
     } catch (error: any) {
