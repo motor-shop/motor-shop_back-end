@@ -47,6 +47,6 @@ export class Advert {
     @OneToMany(() => Image, (image) => image.advert)
     images: Image[];
 
-    @OneToMany(() => Comment, (comment) => comment.advert)
+    @OneToMany(() => Comment, (comment) => comment.advert, { eager: true })
     comments: Comment[];
 }
