@@ -8,6 +8,15 @@ export interface IAdress {
     complement: string;
 }
 
+export interface IAddressUpdate {
+    zip_code?: string;
+    state?: string;
+    city?: string;
+    street?: string;
+    house_number?: number;
+    complement?: string;
+}
+
 export interface IUserUpdate {
     username?: string;
     email?: string;
