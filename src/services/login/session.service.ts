@@ -39,7 +39,7 @@ const sessionService = async ({ data }: IPropsSessionService) => {
         { expiresIn: "24h", subject: userExists.id }
     );
 
-    return token;
+    return {token, userExists};
 };
 
 export default sessionService;

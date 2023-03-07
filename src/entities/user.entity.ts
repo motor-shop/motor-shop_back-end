@@ -46,7 +46,7 @@ export class User {
     @Column({ default: false })
     is_seller: boolean;
 
-    @OneToOne(() => Adress)
+    @OneToOne(() => Adress, {eager: true})
     @JoinColumn()
     adress: Adress;
 
