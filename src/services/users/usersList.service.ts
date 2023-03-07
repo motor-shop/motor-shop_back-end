@@ -17,6 +17,7 @@ const usersListService = async () => {
             cellphone: user.cellphone,
             birth_at: user.birth_at,
             description: user.description,
+            token_reset_password: user.token_reset_password,
             is_seller: user.is_seller,
             adress: user.adress,
         };

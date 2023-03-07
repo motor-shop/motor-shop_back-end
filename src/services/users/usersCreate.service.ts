@@ -51,6 +51,7 @@ const userCreateService = async ({
         confirm_password: hashedconfirmPassword,
         is_seller,
         adress: newAdress,
+        token_reset_password: "",
     });
 
     await userRepository.save(newUser);

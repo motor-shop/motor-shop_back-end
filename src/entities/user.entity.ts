@@ -43,6 +43,9 @@ export class User {
     @Exclude()
     confirm_password: string;
 
+    @Column({ nullable: true })
+    token_reset_password: string;
+
     @Column({ default: false })
     is_seller: boolean;
 
