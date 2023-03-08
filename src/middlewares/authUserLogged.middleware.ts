@@ -1,6 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { AppError } from "../errors/AppErrors";
-import authUserMiddleware from "./authUser.middleware";
 
 const authUserLoggedMiddleware = (
     req: Request,
