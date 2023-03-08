@@ -39,7 +39,11 @@ usersRoutes.post("/users", (req, res, next) => {
 });
 
 usersRoutes.patch("/users/:id", (req, res, next) => {
-    userUpdateController(req, res);
+    authUserMiddleware(req, res, next);
+    authUserLoggedMiddleware(req, res, next);
+    if (!res.headersSent) {
+        userUpdateController(req, res);
+    }
 });
 usersRoutes.get("/users", (req, res, next) => {
     usersListController(req, res);
@@ -69,6 +73,7 @@ usersRoutes.delete("/users/:id", (req, res, next) => {
         schema: { $ref: "#/definitions/ErrorKeysCreate" }
     } */
     authUserMiddleware(req, res, next);
+    authUserLoggedMiddleware(req, res, next);
     if (!res.headersSent) {
         usersDeleteController(req, res);
     }
