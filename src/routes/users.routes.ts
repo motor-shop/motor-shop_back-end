@@ -7,6 +7,7 @@ import usersListController from "../controllers/users/usersList.controller";
 import usersListByIdController from "../controllers/users/usersListById.controller";
 import userUpdateController from "../controllers/users/userUpdate.controller";
 import authUserMiddleware from "../middlewares/authUser.middleware";
+import authUserLoggedMiddleware from "../middlewares/authUserLogged.middleware";
 
 const usersRoutes = Router();
 
@@ -75,6 +76,7 @@ usersRoutes.delete("/users/:id", (req, res, next) => {
 
 usersRoutes.get("/users/:id", (req, res, next) => {
     authUserMiddleware(req, res, next);
+    authUserLoggedMiddleware(req, res, next);
     if (!res.headersSent) {
         usersListByIdController(req, res);
     }
