@@ -17,14 +17,14 @@ const authAdvertMiddleware = async (
     });
 
     if (!advert) {
-        res.status(404).json({
+        return res.status(404).json({
             status: "error",
             message: "Advert not found to update",
         });
     }
 
     if (advert?.user.id !== req.body.decodifiedToken.id) {
-        res.status(401).json({
+        return res.status(401).json({
             status: "error",
             message: "Unauthorized for edit or delete announcement",
         });
