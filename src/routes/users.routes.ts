@@ -1,5 +1,6 @@
 import { Router } from "express";
-
+import resetPasswordController from "../controllers/password/resetPassword.controller";
+import sendResetPasswordController from "../controllers/password/sendResetPassword.controller";
 import userCreateController from "../controllers/users/usersCreate.controller";
 import usersDeleteController from "../controllers/users/usersDelete.controller";
 import usersListController from "../controllers/users/usersList.controller";
@@ -40,6 +41,12 @@ usersRoutes.patch("/users/:id", (req, res, next) => {
 });
 usersRoutes.get("/users", (req, res, next) => {
     usersListController(req, res);
+});
+usersRoutes.post("/users/sendResetPassword", (req, res, next) => {
+    sendResetPasswordController(req, res);
+});
+usersRoutes.post("/users/resetPassword", (req, res, next) => {
+    resetPasswordController(req, res);
 });
 
 usersRoutes.delete("/users/:id", (req, res, next) => {
