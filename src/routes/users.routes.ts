@@ -4,6 +4,7 @@ import sendResetPasswordController from "../controllers/password/sendResetPasswo
 import userCreateController from "../controllers/users/usersCreate.controller";
 import usersDeleteController from "../controllers/users/usersDelete.controller";
 import usersListController from "../controllers/users/usersList.controller";
+import usersListByIdController from "../controllers/users/usersListById.controller";
 import userUpdateController from "../controllers/users/userUpdate.controller";
 import authUserMiddleware from "../middlewares/authUser.middleware";
 
@@ -69,6 +70,13 @@ usersRoutes.delete("/users/:id", (req, res, next) => {
     authUserMiddleware(req, res, next);
     if (!res.headersSent) {
         usersDeleteController(req, res);
+    }
+});
+
+usersRoutes.get("/users/:id", (req, res, next) => {
+    authUserMiddleware(req, res, next);
+    if (!res.headersSent) {
+        usersListByIdController(req, res);
     }
 });
 

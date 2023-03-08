@@ -6,7 +6,7 @@ import { initialMigration1676392522610 } from "./migrations/1676392522610-initia
 import { Advert } from "./entities/advert.entity";
 import { Image } from "./entities/image.entity";
 import { Comment } from "./entities/comment.entity";
-import { createTables1678200540353 } from "./migrations/1678200540353-createTables";
+import { createTables1678273500276 } from "./migrations/1678273500276-createTables";
 
 const AppDataSource = new DataSource({
     type: "postgres",
@@ -18,7 +18,7 @@ const AppDataSource = new DataSource({
     synchronize: false,
     logging: true,
     entities: [User, Adress, Advert, Image, Comment],
-    migrations: [initialMigration1676392522610, createTables1678200540353 ],
+    migrations: [initialMigration1676392522610, createTables1678273500276],
 });
 
 (async () => {
