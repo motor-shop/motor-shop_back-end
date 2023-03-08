@@ -15,6 +15,7 @@ const userCreateService = async ({
     birth_at,
     description,
     password,
+    is_seller,
     confirm_password,
     adress,
 }: IUserRequest): Promise<IUser> => {
@@ -66,6 +67,9 @@ const userCreateService = async ({
     if (!birth_at) {
         throw new AppError(400, "chave birth_at é obrigatoria");
     }
+    if (!is_seller) {
+        throw new AppError(400, "chave is_seller é obrigatoria");
+    }
     if (!description) {
         throw new AppError(400, "chave description é obrigatoria");
     }
@@ -100,8 +104,6 @@ const userCreateService = async ({
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const hashedconfirmPassword = await bcrypt.hash(confirm_password, 10);
-
-    const is_seller = false; // Por padrão, o usuário é criado com is_seller === false.
 
     const newAdress = adressRepository.create(adress);
 
