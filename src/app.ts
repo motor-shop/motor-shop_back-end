@@ -24,9 +24,16 @@ swaggerAutogen()(outputFile, endpointsFiles, doc).then(() => {
         swaggerUi.setup(require("./swagger_output.json"))
     );
 
-    app.use("", usersRoutes, advertsRoutes, sessionRoutes, commentsRoutes, addressRoutes);
+    app.use(
+        "",
+        usersRoutes,
+        advertsRoutes,
+        sessionRoutes,
+        commentsRoutes,
+        addressRoutes
+    );
 
     app.listen(3001, () => {
-        console.log("Server is running on port 3000");
+        console.log("Server is running on port 3001");
     });
 });

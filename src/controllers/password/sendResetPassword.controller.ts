@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import handleError from "../../errors/handleError";
 import { IEmailRequest } from "../../interfaces/email";
 import sendResetPasswordService from "../../services/password/sendResetPassword.service";
-import sendEmailService from "../../services/sendEmail";
 
 const sendResetPasswordController = async (req: Request, res: Response) => {
     try {
