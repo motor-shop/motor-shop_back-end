@@ -12,16 +12,16 @@ import { User } from "./user.entity";
 @Entity("advert")
 export class Advert {
     @PrimaryGeneratedColumn("uuid")
-    readonly id: string;
+    id: string;
 
     @Column({ type: "boolean", default: true })
-    isSell: boolean;
+    is_selling: boolean;
 
     @Column({ type: "varchar", length: 50 })
     title: string;
 
-    @Column({ type: "varchar", length: 4 })
-    year: string;
+    @Column({ type: "int" })
+    year: number;
 
     @Column({ type: "int" })
     km: number;
@@ -38,18 +38,15 @@ export class Advert {
     @Column({ type: "varchar" })
     cover_image: string;
 
-    @Column({ type: "boolean", default: true })
-    is_active: boolean;
-
-    @Column()
-    user_id: string;
-
     @ManyToOne(() => User, (user) => user.adverts)
     user: User;
 
-    @OneToMany(() => Image, (image) => image.advert)
+    @OneToMany(() => Image, (image) => image.advert, { cascade: true })
     images: Image[];
 
-    @OneToMany(() => Comment, (comment) => comment.advert)
+    @OneToMany(() => Comment, (comment) => comment.advert, {
+        cascade: true,
+        eager: true,
+    })
     comments: Comment[];
 }

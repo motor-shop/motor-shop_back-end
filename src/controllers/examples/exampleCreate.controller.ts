@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { AppError, handleError } from "../../errors/AppErrors";
+import { AppError } from "../../errors/AppErrors";
+import handleError from "../../errors/handleError";
 import exampleCreateService from "../../services/examples/exampleCreate.service";
 
 const exampleCreateController = async (req: Request, res: Response) => {
@@ -11,7 +12,7 @@ const exampleCreateController = async (req: Request, res: Response) => {
         return res.status(201).json(example);
     } catch (err) {
         if (err instanceof AppError) {
-            handleError(err, res);
+            handleError(err, req, res);
         }
     }
 };

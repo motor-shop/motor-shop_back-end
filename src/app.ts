@@ -1,26 +1,39 @@
 import express from "express";
-import { Request, Response, NextFunction } from "express";
 
-import { AppError } from "./errors/AppErrors";
+import usersRoutes from "./routes/users.routes";
+import handleError from "./errors/handleError";
+import swaggerAutogen from "swagger-autogen";
+import { doc, endpointsFiles, outputFile } from "./swagger";
+import advertsRoutes from "./routes/adverts.routes";
+import cors from "cors";
+import sessionRoutes from "./routes/session.routes";
+import commentsRoutes from "./routes/comments.routes";
+import addressRoutes from "./routes/address.routes";
+
+const swaggerUi = require("swagger-ui-express");
 
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 
-app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
-    if (err instanceof AppError) {
-        return response.status(err.statusCode).json({
-            status: "error",
-            message: err.message,
-        });
-    }
+swaggerAutogen()(outputFile, endpointsFiles, doc).then(() => {
+    //Routes------------------------
+    app.use(
+        "/api-docs",
+        swaggerUi.serve,
+        swaggerUi.setup(require("./swagger_output.json"))
+    );
 
-    console.error(err);
+    app.use(
+        "",
+        usersRoutes,
+        advertsRoutes,
+        sessionRoutes,
+        commentsRoutes,
+        addressRoutes
+    );
 
-    return response.status(500).json({
-        status: "error",
-        message: "Internal server error",
+    app.listen(3001, () => {
+        console.log("Server is running on port 3001");
     });
 });
-
-app.listen(3000);

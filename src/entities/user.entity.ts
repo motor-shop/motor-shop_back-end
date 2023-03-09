@@ -10,13 +10,14 @@ import {
 } from "typeorm";
 import { Adress } from "./adress.entity";
 import { Advert } from "./advert.entity";
+import { Comment } from "./comment.entity";
 
 @Entity("user")
 export class User {
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
-    @Column({ length: 50 })
+    @Column({ length: 50, unique: true })
     username: string;
 
     @Column({ length: 100, unique: true })
@@ -42,13 +43,19 @@ export class User {
     @Exclude()
     confirm_password: string;
 
+    @Column({ nullable: true })
+    token_reset_password: string;
+
     @Column({ default: false })
     is_seller: boolean;
 
-    @OneToOne(() => Adress)
+    @OneToOne(() => Adress, {eager: true})
     @JoinColumn()
-    adress_id: Adress;
+    adress: Adress;
 
     @OneToMany(() => Advert, (advert) => advert.user)
     adverts: Advert[];
+
+    @OneToMany(() => Comment, (comment) => comment.user)
+    comments: Comment[];
 }
