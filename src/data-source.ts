@@ -6,20 +6,35 @@ import { initialMigration1676392522610 } from "./migrations/1676392522610-initia
 import { Advert } from "./entities/advert.entity";
 import { Image } from "./entities/image.entity";
 import { Comment } from "./entities/comment.entity";
-import { createTables1678273500276 } from "./migrations/1678273500276-createTables";
+import { createTables1678399150550 } from "./migrations/1678399150550-createTables";
 
-const AppDataSource = new DataSource({
-    type: "postgres",
-    host: "localhost",
-    port: 5432,
-    username: String(process.env.POSTGRES_USER),
-    password: String(process.env.POSTGRES_PASSWORD),
-    database: String(process.env.POSTGRES_DB),
-    synchronize: false,
-    logging: true,
-    entities: [User, Adress, Advert, Image, Comment],
-    migrations: [initialMigration1676392522610, createTables1678273500276],
-});
+const AppDataSource = new DataSource(
+    process.env.NODE_ENV === "production"
+        ? {
+              type: "postgres",
+              url: process.env.DATABASE_URL,
+              entities: [User, Adress, Advert, Image, Comment],
+              migrations: [
+                  initialMigration1676392522610,
+                  createTables1678399150550,
+              ],
+          }
+        : {
+              type: "postgres",
+              host: "localhost",
+              port: 5432,
+              username: String(process.env.POSTGRES_USER),
+              password: String(process.env.POSTGRES_PASSWORD),
+              database: String(process.env.POSTGRES_DB),
+              synchronize: false,
+              logging: true,
+              entities: [User, Adress, Advert, Image, Comment],
+              migrations: [
+                  initialMigration1676392522610,
+                  createTables1678399150550,
+              ],
+          }
+);
 
 (async () => {
     await AppDataSource.initialize()
