@@ -6,6 +6,7 @@ import advertGetByUserController from "../controllers/adverts/advertGetByUser.co
 import advertListController from "../controllers/adverts/advertList.controller";
 import advertListOneController from "../controllers/adverts/advertListOne.controller";
 import advertUpdateController from "../controllers/adverts/advertUpdate.controller";
+import authAdvertMiddleware from "../middlewares/authAdvert.middleware";
 import authUserMiddleware from "../middlewares/authUser.middleware";
 
 const advertsRoutes = Router();
@@ -42,7 +43,7 @@ advertsRoutes.post("/adverts", (req, res, next) => {
     }
 });
 
-advertsRoutes.patch("/adverts/:id", (req, res, next) => {
+advertsRoutes.patch("/adverts/:id", async (req, res, next) => {
     /* 	#swagger.tags = ['Advert']
     #swagger.summary = 'atualiza um anúncio de venda de veiculos'
     #swagger.description = 'Este endpoint atualiza um anúncio de veiculos com as informações fornecidas no payload da requisição.' */
@@ -68,12 +69,13 @@ advertsRoutes.patch("/adverts/:id", (req, res, next) => {
         schema: { $ref: "#/definitions/ErrorKeysCreate" }
     } */
     authUserMiddleware(req, res, next);
+    await authAdvertMiddleware(req, res, next);
     if (!res.headersSent) {
         advertUpdateController(req, res);
     }
 });
 
-advertsRoutes.delete("/adverts/:id", (req, res, next) => {
+advertsRoutes.delete("/adverts/:id", async (req, res, next) => {
     /* 	#swagger.tags = ['Advert']
     #swagger.summary = 'deleta um anúncio de venda de veiculos'
     #swagger.description = 'Este endpoint deleta um anuncio pelo id fornecido na url' */
@@ -91,6 +93,7 @@ advertsRoutes.delete("/adverts/:id", (req, res, next) => {
         schema: { $ref: "#/definitions/ErrorKeysCreate" }
     } */
     authUserMiddleware(req, res, next);
+    await authAdvertMiddleware(req, res, next);
     if (!res.headersSent) {
         advertDeleteController(req, res);
     }
