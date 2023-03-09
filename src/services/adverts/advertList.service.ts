@@ -6,6 +6,12 @@ const advertListService = async () => {
     const adverts = await advertRepository.find({
         relations: { images: true, user: true },
     });
-    return adverts;
+    const advertsTrated = adverts.map((advert) => {
+        return {
+            ...advert,
+            user: { username: advert.user.username, id: advert.user.username },
+        };
+    });
+    return advertsTrated;
 };
 export default advertListService;
