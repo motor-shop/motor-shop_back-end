@@ -73,6 +73,9 @@ const userCreateService = async ({
     if (!description) {
         throw new AppError(400, "chave description é obrigatoria");
     }
+    if (!is_seller && is_seller) {
+        throw new AppError(400, "chave is_seller é obrigatoria");
+    }
     if (!password) {
         throw new AppError(400, "chave password é obrigatoria");
     }
